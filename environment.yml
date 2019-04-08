@@ -1,13 +1,10 @@
-name: example-environment
+name: snakemake
 channels:
+  - bioconda
   - conda-forge
 dependencies:
+  - snakemake
   - numpy
-  - psutil
-  - toolz
   - matplotlib
-  - dill
   - pandas
-  - partd
   - bokeh
-  - dask
