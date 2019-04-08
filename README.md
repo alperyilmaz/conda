@@ -1,3 +1,5 @@
-# Skeleton for the Snakemake tutorial
+# Snakemake tutorial
 
-This repository hosts the skeleton code needed for the [Snakemake tutorial](http://snakemake.readthedocs.io/en/latest/tutorial/welcome.html).
+[![Binder](http://mybinder.org/badge_logo.svg)](http://beta.mybinder.org/v2/gh/alperyilmaz/conda-snakemake/master?filepath=index.ipynb)
+
+This repository hosts the codes needed for the [Snakemake tutorial](http://snakemake.readthedocs.io/en/latest/tutorial/welcome.html) which can be run within Jupyterlab environment
