@@ -5,7 +5,7 @@ filelist = glob.glob("sequences/*.fastq")
 SAMPLES = [re.search(r'sequences/(\w+).fastq',file).group(1) for file in filelist]
 
 rule all:
-    input: expand("mapped_reads_from_folder/{sample}.bam",sample=SAMPLES)
+    input: expand("mapped_reads_folder/{sample}.bam",sample=SAMPLES)
 
 rule bwa_map:
     input:
