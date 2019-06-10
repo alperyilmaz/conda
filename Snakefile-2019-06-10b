@@ -12,7 +12,7 @@ rule bwa_map:
         "data/genome.fa",
         "sequences/{sample}.fastq"
     output:
-        "mapped_reads_from_folder/{sample}.bam"
+        "mapped_reads_folder/{sample}.bam"
     shell:
         "bwa mem {input} | samtools view -Sb - > {output}"
 
