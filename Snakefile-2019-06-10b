@@ -13,6 +13,7 @@ rule bwa_map:
         "sequences/{sample}.fastq"
     output:
         "mapped_reads_folder/{sample}.bam"
+    log:
+        "logs/bwa-mem/{sample}.log"
     shell:
-        "bwa mem {input} | samtools view -Sb - > {output}"
-
+        "(bwa mem {input} | samtools view -Sb - > {output}) 2> {log}"
