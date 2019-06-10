@@ -1,0 +1,18 @@
+# process all fastq files in a folder
+import glob
+import re
+filelist = glob.glob("sequences/*.fastq")
+SAMPLES = [re.search(r'sequences/(\w+).fastq',file).group(1) for file in filelist]
+
+rule all:
+    input: expand("mapped_reads_from_folder/{sample}.bam",sample=SAMPLES)
+
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        "sequences/{sample}.fastq"
+    output:
+        "mapped_reads_from_folder/{sample}.bam"
+    shell:
+        "bwa mem {input} | samtools view -Sb - > {output}"
+
