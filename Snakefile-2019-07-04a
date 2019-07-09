@@ -1,0 +1,52 @@
+SAMPLES = ['A']
+
+rule all:
+    input:
+        expand('mapped/{sample}.sorted.bam.bai', sample=SAMPLES)
+
+rule trim_reads_pe:
+    input:
+        r1="data/pairedend/{sample}1.fastq",
+        r2="data/pairedend/{sample}2.fastq"
+    output:
+        r1=temp("trimmed/{sample}1.fastq"),
+        r2=temp("trimmed/{sample}2.fastq"),
+        r1_unpaired= temp("trimmed/{sample}1.unpaired.fastq"),
+        r2_unpaired= temp("trimmed/{sample}2.unpaired.fastq"),
+    
+    params:
+        trimmer=["TRAILING:3"],
+        # optional parameters
+        extra="",
+        compression_level="-9"
+    log:
+       "logs/trimmomatic/{sample}.log"
+    wrapper:
+        "0.35.1/bio/trimmomatic/pe"
+
+
+rule bwa_mem:
+    input:
+        reads=["trimmed/{sample}1.fastq", "trimmed/{sample}2.fastq"]
+    output:
+        "mapped/{sample}.sorted.bam"
+    log:
+        "logs/bwa_mem/{sample}.log"
+    params:
+        index="data/genome.fa",
+        extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
+        sort="samtools",             # Can be 'none', 'samtools' or 'picard'.
+        sort_order="coordinate", # Can be 'queryname' or 'coordinate'.
+        sort_extra=""            # Extra args for samtools/picard.
+    threads: 8
+    wrapper:
+        "0.35.0/bio/bwa/mem"
+        
+rule samtools_index:
+    input:
+        'mapped/{sample}.sorted.bam'
+    output:
+         'mapped/{sample}.sorted.bam.bai'
+    shell:
+         'samtools index {input}'
+
