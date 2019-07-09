@@ -1,6 +1,8 @@
 samples:
   - A
 
+genome: data/genome.fa
+
 params:
   gatk:
     HaplotypeCaller: ""

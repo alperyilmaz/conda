@@ -39,7 +39,7 @@ rule bwa_mem:
         sort_extra=""                # Extra args for samtools/picard.
     threads: 8
     wrapper:
-        "0.35.0/bio/bwa/mem"
+        "0.35.1/bio/bwa/mem"
         
 rule samtools_index:
     input:
