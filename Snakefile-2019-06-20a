@@ -14,7 +14,7 @@ rule samtools_index:
 
 rule bwa_mem:
     input:
-        reads=["data/pairedend/{sample}1.fq", "data/pairedend/{sample}2.fq"]
+        reads=["data/pairedend/{sample}1.fastq", "data/pairedend/{sample}2.fastq"]
     output:
         "mapped/{sample}.sorted.bam"
     log:
